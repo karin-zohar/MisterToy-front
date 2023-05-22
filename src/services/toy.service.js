@@ -1,11 +1,6 @@
-
 import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
-import { userService } from './user.service.js'
-import { httpService } from './http.service.js'
 
-const STORAGE_KEY = 'toyDB'
-const BASE_URL = 'toy/'
+const STORAGE_KEY = 'todoDB'
 
 export const toyService = {
     query,
@@ -13,40 +8,51 @@ export const toyService = {
     save,
     remove,
     getEmptyToy,
-    getDefaultFilter
+    // getDefaultFilter,
+    getDefaultSort
 }
 
+function query(filterBy = {}, sort = {}) {
+    // return axios.get(BASE_URL).then(res => res.data)
+    return storageService.query(STORAGE_KEY)
+}
 
-function query(filterBy = {}) {
-    return httpService.get(BASE_URL, filterBy)
+function getById(toyId) {
+    return storageService.get(STORAGE_KEY, toyId)
 }
-function getById(carId) {
-    return httpService.get(BASE_URL + carId)
-}
-function remove(carId) {
+function remove(toyId) {
     // return Promise.reject('Not now!')
-    return httpService.delete(BASE_URL + carId)
+    return storageService.remove(STORAGE_KEY, toyId)
 }
 function save(toy) {
     if (toy._id) {
-        return httpService.put(BASE_URL, toy)
+        return storageService.put(STORAGE_KEY, toy)
     } else {
         // when switching to backend - remove the next line
-        return httpService.post(BASE_URL, toy)
+        // toy.owner = userService.getLoggedinUser()
+        return storageService.post(STORAGE_KEY, toy)
     }
 }
 
 function getEmptyToy() {
     return {
-        name: ''
+        name: '',
+        price: '',
+        labels: [],
+        createdAt: new Date(),
+        inStock: true,
     }
 }
 
-function getDefaultFilter() {
-    return { txt: '', maxPrice: 0 }
+// function getDefaultFilter() {
+//     return {
+        
+//     }
+// }
+
+function getDefaultSort() {
+    return {
+        sortBy: 'createdAt',
+        desc: 1
+    }
 }
-
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 6', price: 980}).then(x => console.log(x))
-
-
