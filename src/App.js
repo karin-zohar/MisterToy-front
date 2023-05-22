@@ -9,6 +9,8 @@ import { AppFooter } from './cmps/app-footer'
 import { HomePage } from './views/home-page'
 import { ToyIndex } from './views/toy-index'
 import { ToyEdit } from './views/toy-edit'
+import { ToyDetails } from './views/toy-details'
+
 
 export default function App() {
   return (
@@ -21,6 +23,7 @@ export default function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<ToyIndex />} path="/toy" />
+              <Route element={<ToyDetails />} path="/toy/:toyId" />
               <Route element={<ToyEdit />} path="/toy/edit" />
               <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
 

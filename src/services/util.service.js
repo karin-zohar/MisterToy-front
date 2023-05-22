@@ -5,7 +5,9 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     animateCSS,
-    debounce
+    debounce,
+    padNum,
+    formatTime
 }
 
 function makeId(length = 6) {
@@ -62,10 +64,48 @@ function animateCSS(el, animation) {
     })
 }
 
-function debounce(func, timeout = 300){
+function debounce(func, timeout = 300) {
     let timer
     return (...args) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => { func.apply(this, args) }, timeout)
+        clearTimeout(timer)
+        timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
-  }
+}
+
+function padNum(num) {
+    num = num.toFixed(2)
+    return (num > 9) ? num + '' : '0' + num
+}
+
+function getFormattedTime(t) {
+    var d = new Date(t)
+    // console.log('d', d)
+
+    var str = 'At ' + d.getDate() + '/' + (d.getMonth() + 1) + '/' +
+        d.getFullYear() + ' Time: ' + d.getHours() + ':' + d.getMinutes()
+    return str
+}
+
+function formatTime(time) {
+    let now = Date.now()
+    let diff = now - time
+
+    const SECOND = 1000
+    const MINUTE = SECOND * 60
+    const HOUR = MINUTE * 60
+    const DAY = HOUR * 24
+    const WEEK = DAY * 7
+    const MONTH = DAY * 30
+    const YEAR = DAY * 365
+
+    if (diff < MINUTE) return 'Just now'
+    if (diff < MINUTE * 5) return 'A few minutes ago'
+    if (diff < HOUR) return 'Less than a hour ago'
+    if (diff < HOUR * 3) return 'Couple of hours ago'
+    if (diff < DAY) return 'Today'
+    if (diff < DAY * 2) return 'Yesterday'
+    if (diff < DAY * 3) return '2 days ago'
+    if (diff < WEEK) return 'About a week ago'
+
+    return getFormattedTime(time)
+}
