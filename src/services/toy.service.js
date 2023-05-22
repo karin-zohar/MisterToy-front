@@ -1,6 +1,8 @@
 import { storageService } from './async-storage.service.js'
 
 const STORAGE_KEY = 'toyDB'
+const LABELS = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+'Outdoor', 'Battery Powered']
 
 export const toyService = {
     query,
@@ -8,8 +10,9 @@ export const toyService = {
     save,
     remove,
     getEmptyToy,
-    // getDefaultFilter,
-    getDefaultSort
+    getDefaultFilter,
+    getDefaultSort,
+    getLabels
 }
 
 function query(filterBy = {}, sort = {}) {
@@ -44,15 +47,21 @@ function getEmptyToy() {
     }
 }
 
-// function getDefaultFilter() {
-//     return {
-        
-//     }
-// }
+function getDefaultFilter() {
+    return {
+        name: '',
+        inStock: '',
+        labels: ''
+    }
+}
 
 function getDefaultSort() {
     return {
         sortBy: 'createdAt',
         desc: 1
     }
+}
+
+function getLabels() {
+    return LABELS
 }

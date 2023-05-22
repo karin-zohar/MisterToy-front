@@ -73,6 +73,8 @@ function debounce(func, timeout = 300) {
 }
 
 function padNum(num) {
+    console.log('num: ', num)
+    num = +num
     num = num.toFixed(2)
     return (num > 9) ? num + '' : '0' + num
 }

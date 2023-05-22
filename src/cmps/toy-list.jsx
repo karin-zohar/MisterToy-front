@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { ToyPreview } from "./toy-preview"
 
 export function ToyList({ toys, onRemoveToy }) {
-    console.log('toys: ', toys)
     return (
         <section className="toy-list">
             <ul>

@@ -33,6 +33,7 @@ export function ToyDetails() {
     return <section className="toy-details">
         <h1>{toy.name}</h1>
         <p>${price}</p>
+        <p>{(toy.inStock) ? 'Available' : 'Out of stock'}</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
         <Link to={`/toy/edit/${toy._id}`}>Edit</Link>
         <button><Link to={`/toy`}>Back</Link></button>

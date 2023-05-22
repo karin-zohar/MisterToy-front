@@ -32,7 +32,8 @@ export function ToyEdit() {
 
     function handleChange({ target }) {
         let { value, type, name: field } = target
-        value = type === 'number' ? +value : value
+        if (type === 'checkbox') value = target.checked
+        else value = (type === 'number') ? +value : value
         setUpdatedToy((prevToy) => ({ ...prevToy, [field]: value }))
     }
 
@@ -51,7 +52,7 @@ export function ToyEdit() {
     }
 
     const { name, price, inStock } = updatedToy
-
+    console.log('inStock: ', inStock)
     return (
         <section className="toy-edit">
             <h2>{toyToEdit._id ? 'Edit this toy' : 'Add a new toy'}</h2>
@@ -82,7 +83,7 @@ export function ToyEdit() {
                     type="checkbox"
                     name="inStock"
                     id="inStock"
-                    value={inStock}
+                    // value={inStock}
                     checked={inStock}
                     onChange={handleChange}
                 />

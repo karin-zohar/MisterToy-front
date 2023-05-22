@@ -5,11 +5,11 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { loadToys, removeToy, saveToy } from '../store/toy.actions.js'
 import { ToyFilter } from "../cmps/toy-filter"
 import { ToyList } from '../cmps/toy-list'
+import { SET_FILTER_BY, SET_SORT_BY } from '../store/toy.reducer.js'
 
 export function ToyIndex() {
     const dispatch = useDispatch()
     const toys = useSelector((storeState) => storeState.toyModule.toys)
-    // console.log('index - toys: ', toys)
 
     useEffect(() => {
         loadToys()
@@ -26,16 +26,30 @@ export function ToyIndex() {
             })
     }
 
-    
+    function onSetFilter(filterToEdit) {
+        dispatch({ type: SET_FILTER_BY, filterToEdit: { ...filterToEdit } })
+    }
+
+    function onSetSort(sortToEdit) {
+        console.log('sortToEdit: ', sortToEdit)
+        dispatch({ type: SET_SORT_BY, sortToEdit: { ...sortToEdit } })
+    }
+
+
     return (
         <section className="toy-index">
             <h1>Find the right toy for <span>you</span></h1>
             <main>
-                <Link to={`/toy/edit`}>Add Toy</Link>
-                <ToyFilter />
-                <ToyList 
-                toys={toys}
-                onRemoveToy={onRemoveToy}
+                <button>
+                    <Link to={`/toy/edit`}>Add Toy</Link>
+                </button>
+                <ToyFilter
+                    onSetFilter={onSetFilter}
+                    onSetSort={onSetSort}
+                />
+                <ToyList
+                    toys={toys}
+                    onRemoveToy={onRemoveToy}
                 />
             </main>
         </section>
