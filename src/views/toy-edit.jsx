@@ -83,6 +83,7 @@ export function ToyEdit() {
                     name="inStock"
                     id="inStock"
                     value={inStock}
+                    checked={inStock}
                     onChange={handleChange}
                 />
 

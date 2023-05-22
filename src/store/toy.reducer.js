@@ -21,13 +21,13 @@ export function toyReducer(state = initialState, action) {
         case SET_TOYS:
             return { ...state, toys: action.toys }
         case REMOVE_TOY:
-            toys = state.toys.filter(t => t.id !== action.toyId)
+            toys = state.toys.filter(t => t._id !== action.toyId)
             return { ...state, toys }
         case ADD_TOY:
             toys = [...state.toys, action.toy]
             return { ...state, toys }
         case UPDATE_TOY:
-            toys = state.toys.map(toy => toy.id === action.toy.id ? action.toy : toy)
+            toys = state.toys.map(toy => toy._id === action.toy._id ? action.toy : toy)
             return { ...state, toys }
         case SET_FILTER_BY:
             filterBy = { ...state.filterBy, ...action.filterToEdit }
