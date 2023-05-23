@@ -1,10 +1,10 @@
 import { toyService } from "../services/toy.service"
 import { store } from "./store"
-import { SET_TOYS, ADD_TOY, UPDATE_TOY, REMOVE_TOY } from "./toy.reducer"
+import { SET_TOYS, ADD_TOY, UPDATE_TOY, REMOVE_TOY, SET_IS_LOADING} from "./toy.reducer"
 
-export function loadToys() {
-    // store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-    return toyService.query()
+export function loadToys(filterBy, sortBy) {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+    return toyService.query(filterBy, sortBy)
         .then((toys) => {
             store.dispatch({ type: SET_TOYS, toys })
         })
@@ -12,9 +12,9 @@ export function loadToys() {
             console.log('toy action -> Cannot load toys', err)
             throw err
         })
-    // .finally(()=>{
-    //     store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-    // })
+    .finally(()=>{
+        store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    })
 }
 
 export function removeToy(toyId) {

@@ -22,17 +22,18 @@ export function ToyFilter({ onSetFilter, onSetSort }) {
 
     function handleFilterChange({ target }) {
         let { value, name: field, type } = target
-        value = (type === 'number') ? +value : value
+        if (type === 'checkbox') value = target.checked
+        else value = (type === 'number' || type === 'range') ? +value : value
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
     function handleSortChange({ target }) {
         let { value, name: field, type } = target
-        value = (type === 'number'|| type === 'range') ? +value : value
+        value = (type === 'number' || type === 'range') ? +value : value
         setSortByToEdit((prevSort) => ({ ...prevSort, [field]: value }))
     }
 
-    function setRangeLabel({target}) {
+    function setRangeLabel({ target }) {
         setMaxPrice(target.value)
     }
 
@@ -53,7 +54,7 @@ export function ToyFilter({ onSetFilter, onSetSort }) {
                 <button value={1} onClick={handleSortChange} name="desc">&#8593;</button>
                 <button value={-1} onClick={handleSortChange} name="desc" >&#8595;</button>
             </section>
-            
+
             <section className="filter">
 
                 <input
@@ -76,7 +77,14 @@ export function ToyFilter({ onSetFilter, onSetSort }) {
                     }}
                 />
 
-               
+                <label htmlFor="inStock">In stock</label>
+                <input
+                    type="checkbox"
+                    name="inStock"
+                    onChange={handleFilterChange}
+                    />
+
+
 
             </section>
 
